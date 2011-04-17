@@ -1,5 +1,5 @@
 name:          explicit-iomodes-bytestring
-version:       0.1.0.2
+version:       0.1.0.3
 cabal-version: >=1.6
 build-type:    Simple
 license:       BSD3
@@ -13,8 +13,8 @@ synopsis:      Extends explicit-iomodes with ByteString operations
 description:   Extends @explicit-iomodes@ with @ByteString@ operations
 
 source-repository head
-  Type:     darcs
-  Location: http://code.haskell.org/~basvandijk/code/explicit-iomodes-bytestring
+  Type:     git
+  Location: git://github.com/basvandijk/explicit-iomodes-bytestring.git
 
 Library
   GHC-Options: -Wall
