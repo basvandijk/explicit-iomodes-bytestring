@@ -1,4 +1,4 @@
-{-# LANGUAGE UnicodeSyntax, NoImplicitPrelude #-}
+{-# LANGUAGE CPP, UnicodeSyntax, NoImplicitPrelude #-}
 
 -------------------------------------------------------------------------------
 -- |
@@ -16,9 +16,15 @@ module Data.ByteString.ExplicitIOModes
     ( hGetLine
     , hGetContents
     , hGet
+#if MIN_VERSION_bytestring(0,9,1)
+    , hGetSome
+#endif
     , hGetNonBlocking
 
     , hPut
+#if MIN_VERSION_bytestring(0,9,2)
+    , hPutNonBlocking
+#endif
     , hPutStr
     ) where
 
@@ -35,9 +41,15 @@ import Data.ByteString                ( ByteString )
 import qualified Data.ByteString as B ( hGetLine
                                       , hGetContents
                                       , hGet
+#if MIN_VERSION_bytestring(0,9,1)
+                                      , hGetSome
+#endif
                                       , hGetNonBlocking
 
                                       , hPut
+#if MIN_VERSION_bytestring(0,9,2)
+                                      , hPutNonBlocking
+#endif
                                       , hPutStr
                                       )
 
@@ -62,6 +74,12 @@ hGetContents = wrap B.hGetContents
 hGet ∷ ReadModes ioMode ⇒ Handle ioMode → Int → IO ByteString
 hGet = wrap2 B.hGet
 
+#if MIN_VERSION_bytestring(0,9,1)
+-- | Wraps @Data.ByteString.@'B.hGetSome'.
+hGetSome ∷ ReadModes ioMode ⇒ Handle ioMode → Int → IO ByteString
+hGetSome = wrap2 B.hGetSome
+#endif
+
 -- | Wraps @Data.ByteString.@'B.hGetNonBlocking'.
 hGetNonBlocking ∷ ReadModes ioMode ⇒ Handle ioMode → Int → IO ByteString
 hGetNonBlocking = wrap2 B.hGetNonBlocking
@@ -70,6 +88,12 @@ hGetNonBlocking = wrap2 B.hGetNonBlocking
 -- | Wraps @Data.ByteString.@'B.hPut'.
 hPut ∷ WriteModes ioMode ⇒ Handle ioMode → ByteString → IO ()
 hPut = wrap2 B.hPut
+
+#if MIN_VERSION_bytestring(0,9,2)
+-- | Wraps @Data.ByteString.@'B.hPutNonBlocking'.
+hPutNonBlocking ∷ WriteModes ioMode ⇒ Handle ioMode → ByteString → IO ByteString
+hPutNonBlocking = wrap2 B.hPutNonBlocking
+#endif
 
 -- | Wraps @Data.ByteString.@'B.hPutStr'.
 hPutStr ∷ WriteModes ioMode ⇒ Handle ioMode → ByteString → IO ()
