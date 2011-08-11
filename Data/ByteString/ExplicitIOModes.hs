@@ -20,7 +20,6 @@ module Data.ByteString.ExplicitIOModes
 
     , hPut
     , hPutStr
-    , hPutStrLn
     ) where
 
 -------------------------------------------------------------------------------
@@ -40,7 +39,6 @@ import qualified Data.ByteString as B ( hGetLine
 
                                       , hPut
                                       , hPutStr
-                                      , hPutStrLn
                                       )
 
 -- from explicit-iomodes:
@@ -76,10 +74,6 @@ hPut = wrap2 B.hPut
 -- | Wraps @Data.ByteString.@'B.hPutStr'.
 hPutStr ∷ WriteModes ioMode ⇒ Handle ioMode → ByteString → IO ()
 hPutStr = wrap2 B.hPutStr
-
--- | Wraps @Data.ByteString.@'B.hPutStrLn'.
-hPutStrLn ∷ WriteModes ioMode ⇒ Handle ioMode → ByteString → IO ()
-hPutStrLn = wrap2 B.hPutStrLn
 
 
 -- The End ---------------------------------------------------------------------
